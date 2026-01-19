@@ -11,3 +11,8 @@ texture = ExtResource("1_4flbx")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-8, -40, 6, -40, 6, -40, 17, -17, 17, -17, 60, 4, 60, 4, 39, 38, 39, 38, 18, 33, 18, 33, 13, 41, 13, 41, -13, 41, -13, 41, -18, 33, -18, 33, -39, 38, -39, 38, -60, 3, -16, -19, -16, -19)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-59, -41, 118, 82)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
