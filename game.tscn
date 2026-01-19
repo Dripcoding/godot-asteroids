@@ -1,3 +1,19 @@
-[gd_scene format=3 uid="uid://dd4pypaytolhg"]
+[gd_scene load_steps=2 format=3 uid="uid://dd4pypaytolhg"]
+
+[ext_resource type="PackedScene" uid="uid://iole7bn7ybqq" path="res://player.tscn" id="1_80nbo"]
 
 [node name="game" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_80nbo")]
+position = Vector2(970, 652)
