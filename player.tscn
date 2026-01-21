@@ -9,6 +9,10 @@ script = ExtResource("1_onrkg")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_4flbx")
 
+[node name="LaserSpawnPoint" type="Marker2D" parent="Sprite2D"]
+unique_name_in_owner = true
+position = Vector2(0, -96)
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-8, -40, 6, -40, 6, -40, 17, -17, 17, -17, 60, 4, 60, 4, 39, 38, 39, 38, 18, 33, 18, 33, 13, 41, 13, 41, -13, 41, -13, 41, -18, 33, -18, 33, -39, 38, -39, 38, -60, 3, -16, -19, -16, -19)
 
