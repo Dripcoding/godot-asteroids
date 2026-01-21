@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 @export var speed: float = 300.0
-@export var ship_rotation: float = 7.0
+@export var ship_rotation: float = 10.0
 @export var friction: float = 0.8
 
 
@@ -11,14 +11,15 @@ var laser_scene: PackedScene = preload('res://laser.tscn')
 
 func _physics_process(_delta: float) -> void:
 	var direction: Vector2 = Input.get_vector('left', 'right', 'up', 'down')
-	velocity += direction * speed
-	velocity *= friction
-	move_and_slide()
 	
 	if Input.is_action_pressed("left"):
 		global_rotation_degrees -= ship_rotation
 	elif Input.is_action_pressed("right"):
 		global_rotation_degrees += ship_rotation
+	elif Input.is_action_pressed("up") or Input.is_action_pressed("down"):	
+		velocity += direction.rotated(deg_to_rad(global_rotation_degrees)) * speed
+		velocity *= friction
+		move_and_slide()
 		
 	shoot()
 
@@ -41,7 +42,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 		
 		
 func shoot() -> void:
-	if Input.is_action_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot"):
 		var laser: Node2D = laser_scene.instantiate()
 		laser.global_rotation = %LaserSpawnPoint.global_rotation
 		laser.global_position = %LaserSpawnPoint.global_position
