@@ -13,6 +13,7 @@ func _ready() -> void:
 		ship_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
 		%HealthContainer.add_child(ship_icon)
 	
+	%Player.damage_taken.connect(_on_player_take_damage)
 	%Player.health_depleted.connect(_on_player_health_depleted)
 
 
@@ -20,6 +21,11 @@ func _process(delta: float) -> void:
 	if is_game_active:
 		time_elapsed += delta
 		%ScoreLabel.text = "Score: " + str(int(time_elapsed))
+
+
+func _on_player_take_damage() -> void:
+	if %HealthContainer.get_child_count() > 0:
+		%HealthContainer.get_child(-1).queue_free()
 
 
 func _on_player_health_depleted() -> void:
