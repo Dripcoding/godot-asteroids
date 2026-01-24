@@ -2,6 +2,8 @@ extends Node2D
 
 
 var ship_scene: CompressedTexture2D = preload('res://PNG/playerShip2_red.png')
+var time_elapsed: float = 0
+var is_game_active: bool = true
 
 
 func _ready() -> void:
@@ -10,8 +12,15 @@ func _ready() -> void:
 		ship_icon.texture = ship_scene
 		ship_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
 		%HealthContainer.add_child(ship_icon)
+	
+	%Player.health_depleted.connect(_on_player_health_depleted)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if is_game_active:
+		time_elapsed += delta
+		%ScoreLabel.text = "Score: " + str(int(time_elapsed))
+
+
+func _on_player_health_depleted() -> void:
+	is_game_active = false

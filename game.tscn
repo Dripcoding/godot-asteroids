@@ -7,10 +7,10 @@
 [node name="game" type="Node2D"]
 script = ExtResource("1_feb5d")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="UI"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -18,19 +18,46 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="HealthContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+[node name="HealthContainer" type="HBoxContainer" parent="UI/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_constants/separation = 20
 alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -261.0
+offset_bottom = 88.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer2"]
+layout_mode = 2
+alignment = 2
+
+[node name="ScoreLabel" type="Label" parent="UI/MarginContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 64
+text = "Score: 0"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="Player" parent="." instance=ExtResource("1_80nbo")]
 unique_name_in_owner = true
