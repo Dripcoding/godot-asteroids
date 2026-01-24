@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dd4pypaytolhg"]
+[gd_scene load_steps=4 format=3 uid="uid://dd4pypaytolhg"]
 
 [ext_resource type="PackedScene" uid="uid://iole7bn7ybqq" path="res://player.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://c1v4sqggjfuun" path="res://game.gd" id="1_feb5d"]
 [ext_resource type="PackedScene" uid="uid://0vejeporl1vq" path="res://asteroid.tscn" id="2_e2o6t"]
 
 [node name="game" type="Node2D"]
+script = ExtResource("1_feb5d")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -16,7 +18,22 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HealthContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
 [node name="Player" parent="." instance=ExtResource("1_80nbo")]
+unique_name_in_owner = true
 position = Vector2(970, 652)
 
 [node name="Area2D" parent="." instance=ExtResource("2_e2o6t")]
