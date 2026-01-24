@@ -18,9 +18,10 @@ func _physics_process(_delta: float) -> void:
 		global_rotation_degrees += ship_rotation
 	elif Input.is_action_pressed("up") or Input.is_action_pressed("down"):	
 		velocity += direction.rotated(deg_to_rad(global_rotation_degrees)) * speed
-		velocity *= friction
-		move_and_slide()
-		
+	
+	velocity *= friction
+	move_and_slide()
+
 	shoot()
 
 
