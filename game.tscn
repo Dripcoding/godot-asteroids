@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dd4pypaytolhg"]
+[gd_scene load_steps=3 format=3 uid="uid://dd4pypaytolhg"]
 
 [ext_resource type="PackedScene" uid="uid://iole7bn7ybqq" path="res://player.tscn" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://0vejeporl1vq" path="res://asteroid.tscn" id="2_e2o6t"]
 
 [node name="game" type="Node2D"]
 
@@ -17,3 +18,6 @@ color = Color(0, 0, 0, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_80nbo")]
 position = Vector2(970, 652)
+
+[node name="Area2D" parent="." instance=ExtResource("2_e2o6t")]
+position = Vector2(971, 332)

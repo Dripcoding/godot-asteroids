@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var speed: float = 300.0
 @export var ship_rotation: float = 10.0
 @export var friction: float = 0.8
+@export var health: int = 5
 
 
 var laser_scene: PackedScene = preload('res://laser.tscn')
@@ -48,3 +49,10 @@ func shoot() -> void:
 		laser.global_rotation = %LaserSpawnPoint.global_rotation
 		laser.global_position = %LaserSpawnPoint.global_position
 		%LaserSpawnPoint.add_child(laser)
+		
+
+func take_damage() -> void:
+	print('taking damage from asteroid')
+	health -= 1
+	print('health ' + str(health))
+	
