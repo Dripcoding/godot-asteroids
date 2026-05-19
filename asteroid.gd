@@ -8,10 +8,25 @@ signal asteroid_hit
 @export var sizes: Array[String] = ['big', 'med', 'small', 'tiny']
 @export var current_size: String = 'big'
 @export var color: String = 'Grey'
+@export var min_speed: float = 300.0
+@export var max_speed: float = 500.0
+
+
+var speed: float = 0.0
+var velocity: Vector2 = Vector2.ZERO
+
+
+var rng = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
+	speed = rng.randf_range(min_speed, max_speed)
+	velocity = Vector2.from_angle(randf() * TAU)
 	update_texture()
+
+
+func _physics_process(delta: float) -> void:
+	position += velocity * speed * delta
 
 
 func _on_body_entered(body: Node2D) -> void:
