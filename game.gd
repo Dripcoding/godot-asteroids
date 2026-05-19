@@ -30,3 +30,11 @@ func _on_player_take_damage() -> void:
 
 func _on_player_health_depleted() -> void:
 	is_game_active = false
+
+
+func _on_asteroid_asteroid_hit(body: Node2D) -> void:
+	print('spawning new asteroid')
+	print('current size' + str(body.current_size))
+	if (body.has_method('update_texture')):
+		body.update_texture()
+		
