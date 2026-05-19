@@ -1,8 +1,6 @@
 extends Area2D
 
 
-signal asteroid_hit
-
 
 @export var health: int = 3
 @export var sizes: Array[String] = ['big', 'med', 'small', 'tiny']
@@ -11,11 +9,9 @@ signal asteroid_hit
 @export var min_speed: float = 300.0
 @export var max_speed: float = 500.0
 
-
+var asteroid_scene: PackedScene = preload('res://asteroid.tscn')
 var speed: float = 0.0
 var velocity: Vector2 = Vector2.ZERO
-
-
 var rng = RandomNumberGenerator.new()
 
 
@@ -40,7 +36,6 @@ func _on_area_entered(area: Area2D) -> void:
 		update_stats()
 			
 			
-
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	var viewport_rect: Rect2 = get_viewport_rect()
 #	# wrap around x axis from left to right
@@ -61,11 +56,20 @@ func update_stats() -> void:
 	health -= 1
 	if (health >= 0):
 		current_size = sizes[3 - health]
-		update_texture()
-		asteroid_hit.emit(self)
-	else:
-		self.queue_free()
-		
-		
+		if current_size != 'tiny':
+			spawn_children()
+	queue_free()
+
+
 func update_texture() -> void:
 	$Sprite2D.texture = load("res://PNG/Meteors/meteor%s_%s1.png" % [color, current_size])
+
+
+func spawn_children() -> void:
+	for i in range(2):
+		var child = asteroid_scene.instantiate()
+		child.global_position = global_position
+		child.current_size = current_size
+		child.color = color
+		child.health = 3 - sizes.find(current_size)
+		get_parent().add_child(child)
