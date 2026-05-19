@@ -59,8 +59,9 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 			
 func update_stats() -> void:
 	health -= 1
-	if (health >= 0): 
+	if (health >= 0):
 		current_size = sizes[3 - health]
+		update_texture()
 		asteroid_hit.emit(self)
 	else:
 		self.queue_free()

@@ -67,7 +67,9 @@ position = Vector2(970, 652)
 position = Vector2(971, 332)
 
 [node name="Asteroid2" parent="." unique_id=404754690 instance=ExtResource("2_e2o6t")]
+position = Vector2(1516, 832)
 
 [node name="Asteroid3" parent="." unique_id=1963521705 instance=ExtResource("2_e2o6t")]
+position = Vector2(358, 867)
 
 [connection signal="asteroid_hit" from="Asteroid" to="." method="_on_asteroid_asteroid_hit"]
