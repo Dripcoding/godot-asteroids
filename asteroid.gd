@@ -12,6 +12,7 @@ extends Area2D
 var asteroid_scene: PackedScene = preload('res://asteroid.tscn')
 var speed: float = 0.0
 var velocity: Vector2 = Vector2.ZERO
+var is_hit: bool = false
 var rng = RandomNumberGenerator.new()
 
 
@@ -26,8 +27,9 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.has_method('take_damage'):
+	if body.has_method('take_damage') and not body.get('is_invincible'):
 		body.take_damage()
+		update_stats()
 
 
 func _on_area_entered(area: Area2D) -> void:
@@ -53,6 +55,9 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 		global_position.y = viewport_rect.position.y			
 			
 func update_stats() -> void:
+	if is_hit:
+		return
+	is_hit = true
 	health -= 1
 	if (health >= 0):
 		current_size = sizes[3 - health]

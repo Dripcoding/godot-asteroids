@@ -10,6 +10,7 @@ signal damage_taken
 
 
 var laser_scene: PackedScene = preload('res://laser.tscn')
+var is_invincible: bool = false
 
 
 func _physics_process(_delta: float) -> void:
@@ -24,6 +25,16 @@ func _physics_process(_delta: float) -> void:
 	
 	velocity *= friction
 	move_and_slide()
+
+	#if is_invincible:
+		#$Sprite2D.visible = int(Time.get_ticks_msec() / 100) % 2 == 0
+	#else:
+		#$Sprite2D.visible = true
+
+	if is_invincible:
+		$Sprite2D.modulate.a = 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.01)
+	else:
+		$Sprite2D.modulate.a = 1.0
 
 	shoot()
 
@@ -54,9 +65,15 @@ func shoot() -> void:
 		
 
 func take_damage() -> void:
+	if is_invincible:
+		return
 	print('taking damage from asteroid')
 	health -= 1
 	print('health ' + str(health))
+	is_invincible = true
+	velocity = Vector2.ZERO
+	get_tree().create_timer(1.5).timeout.connect(func(): is_invincible = false)
+	global_position = get_viewport_rect().size / 2
 	damage_taken.emit()
 	if health <= 0:
 		health_depleted.emit()
