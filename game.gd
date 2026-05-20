@@ -32,6 +32,7 @@ func _on_player_take_damage() -> void:
 
 func _on_player_health_depleted() -> void:
 	is_game_active = false
+	%AsteroidSpawner.stop()
 	%GameOverScreen.visible = true
 	%GameOverLabel.text = "Game Over - Score: " + str(int(time_elapsed))
 	get_tree().paused = true
