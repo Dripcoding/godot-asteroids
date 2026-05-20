@@ -53,7 +53,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 		global_position.y = viewport_rect.end.y
 	# wrap around y axis from bottom to top
 	elif global_position.y > viewport_rect.end.y:
-		global_position.y = viewport_rect.position.y
+		global_position.y = viewport_rect.position.y	
 		
 		
 func shoot() -> void:

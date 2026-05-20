@@ -17,6 +17,7 @@ var rng = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
+	add_to_group("asteroids")
 	speed = rng.randf_range(min_speed, max_speed)
 	velocity = Vector2.from_angle(randf() * TAU)
 	update_texture()

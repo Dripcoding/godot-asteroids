@@ -53,6 +53,30 @@ text = "Score: 0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="GameOverScreen" type="VBoxContainer" parent="UI" unique_id=371483006]
+unique_name_in_owner = true
+process_mode = 3
+offset_left = 695.0
+offset_top = 403.0
+offset_right = 1230.0
+offset_bottom = 443.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameOverScreen" unique_id=1747841989]
+layout_mode = 2
+alignment = 1
+
+[node name="GameOverLabel" type="Label" parent="UI/GameOverScreen/HBoxContainer" unique_id=13176971]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Game Over"
+
+[node name="GameOverButton" type="Button" parent="UI/GameOverScreen" unique_id=894035447]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Restart Game"
+
 [node name="Player" parent="." unique_id=289752619 instance=ExtResource("1_80nbo")]
 unique_name_in_owner = true
 position = Vector2(970, 652)
@@ -65,3 +89,5 @@ position = Vector2(1516, 832)
 
 [node name="Asteroid3" parent="." unique_id=1963521705 instance=ExtResource("2_e2o6t")]
 position = Vector2(358, 867)
+
+[connection signal="pressed" from="UI/GameOverScreen/GameOverButton" to="." method="_on_game_over_button_pressed"]

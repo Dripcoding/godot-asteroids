@@ -7,12 +7,14 @@ var is_game_active: bool = true
 
 
 func _ready() -> void:
+	%GameOverScreen.visible = false
+
 	for i in range(%Player.health, 0, -1):
 		var ship_icon = TextureRect.new()
 		ship_icon.texture = ship_scene
 		ship_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
 		%HealthContainer.add_child(ship_icon)
-	
+
 	%Player.damage_taken.connect(_on_player_take_damage)
 	%Player.health_depleted.connect(_on_player_health_depleted)
 
@@ -30,3 +32,11 @@ func _on_player_take_damage() -> void:
 
 func _on_player_health_depleted() -> void:
 	is_game_active = false
+	%GameOverScreen.visible = true
+	%GameOverLabel.text = "Game Over - Score: " + str(int(time_elapsed))
+	get_tree().paused = true
+
+
+func _on_game_over_button_pressed() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
