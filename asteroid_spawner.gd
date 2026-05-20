@@ -7,7 +7,6 @@ var viewport_size: Vector2i = DisplayServer.window_get_size()
 
 
 func _on_timeout() -> void:
-	print('spawning asteroid')
 	start_spawning()
 
 

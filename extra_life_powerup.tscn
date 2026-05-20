@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://db08xd0sf3hve"]
+
+[ext_resource type="Texture2D" uid="uid://bam2p5rvnln7o" path="res://PNG/Power-ups/pill_green.png" id="1_b6h4i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l54uw"]
+
+[node name="extra_life_powerup" type="Area2D" unique_id=514640164]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=442106820]
+texture = ExtResource("1_b6h4i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=782081235]
+shape = SubResource("CircleShape2D_l54uw")
