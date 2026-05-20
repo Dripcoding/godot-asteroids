@@ -18,6 +18,10 @@ config/name="asteroids"
 run/main_scene="uid://dd4pypaytolhg"
 config/features=PackedStringArray("4.6", "Forward Plus")
 
+[rendering]
+
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+
 [display]
 
 window/size/viewport_width=1920
