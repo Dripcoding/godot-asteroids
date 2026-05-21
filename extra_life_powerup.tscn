@@ -2,12 +2,16 @@
 
 [ext_resource type="Texture2D" uid="uid://bam2p5rvnln7o" path="res://PNG/Power-ups/pill_green.png" id="1_b6h4i"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_l54uw"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b6h4i"]
+radius = 8.4307575
+height = 28.26704
 
 [node name="extra_life_powerup" type="Area2D" unique_id=514640164]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=442106820]
+scale = Vector2(2, 2)
 texture = ExtResource("1_b6h4i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=782081235]
-shape = SubResource("CircleShape2D_l54uw")
+rotation = 0.75049156
+shape = SubResource("CapsuleShape2D_b6h4i")

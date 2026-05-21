@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c1v4sqggjfuun" path="res://game.gd" id="1_feb5d"]
 [ext_resource type="PackedScene" uid="uid://0vejeporl1vq" path="res://asteroid.tscn" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://rtq7hmm7x1r0" path="res://asteroid_spawner.gd" id="4_fc0e3"]
+[ext_resource type="Script" uid="uid://bbhfp8m87gekb" path="res://power_up_spawner.gd" id="5_7jktm"]
 
 [node name="game" type="Node2D" unique_id=1054116352]
 script = ExtResource("1_feb5d")
@@ -98,5 +99,12 @@ wait_time = 1.5
 autostart = true
 script = ExtResource("4_fc0e3")
 
+[node name="PowerUpSpawner" type="Timer" parent="." unique_id=436942173]
+unique_name_in_owner = true
+wait_time = 10.0
+autostart = true
+script = ExtResource("5_7jktm")
+
 [connection signal="pressed" from="UI/GameOverScreen/GameOverButton" to="." method="_on_game_over_button_pressed"]
 [connection signal="timeout" from="AsteroidSpawner" to="AsteroidSpawner" method="_on_timeout"]
+[connection signal="timeout" from="PowerUpSpawner" to="PowerUpSpawner" method="_on_timeout"]
