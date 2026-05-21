@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://bnhwoyxdtqh2n" path="res://extra_life_powerup.gd" id="1_l54uw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b6h4i"]
-radius = 8.4307575
-height = 28.26704
+radius = 13.352812
+height = 53.70738
 
 [node name="extra_life_powerup" type="Area2D" unique_id=514640164]
 script = ExtResource("1_l54uw")
