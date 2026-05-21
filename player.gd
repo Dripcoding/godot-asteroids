@@ -24,6 +24,11 @@ func _physics_process(_delta: float) -> void:
 	elif Input.is_action_pressed("up") or Input.is_action_pressed("down"):	
 		velocity += direction.rotated(deg_to_rad(global_rotation_degrees)) * speed
 	
+	var forward = -transform.y
+	var dot = velocity.dot(forward)
+	if dot < 0:
+		velocity -= forward * dot
+
 	velocity *= friction
 	move_and_slide()
 
