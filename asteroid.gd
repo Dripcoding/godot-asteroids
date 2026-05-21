@@ -13,6 +13,7 @@ var asteroid_scene: PackedScene = preload('res://asteroid.tscn')
 var speed: float = 0.0
 var velocity: Vector2 = Vector2.ZERO
 var is_hit: bool = false
+var ignored_laser: Area2D = null
 var rng = RandomNumberGenerator.new()
 
 
@@ -34,9 +35,13 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group('lasers'):
+	if area.is_in_group('lasers') and !area.is_piercing:
 		area.destroy()
 		update_stats()
+	elif area.is_in_group('lasers') and area.is_piercing:
+		if area == ignored_laser:
+			return
+		update_stats(area)
 			
 			
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
@@ -55,7 +60,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	elif global_position.y > viewport_rect.end.y:
 		global_position.y = viewport_rect.position.y			
 			
-func update_stats() -> void:
+func update_stats(piercing_laser: Area2D = null) -> void:
 	if is_hit:
 		return
 	is_hit = true
@@ -63,7 +68,7 @@ func update_stats() -> void:
 	if (health >= 0):
 		current_size = sizes[3 - health]
 		if current_size != 'tiny':
-			spawn_children()
+			spawn_children(piercing_laser)
 	queue_free()
 
 
@@ -71,11 +76,12 @@ func update_texture() -> void:
 	$Sprite2D.texture = load("res://PNG/Meteors/meteor%s_%s1.png" % [color, current_size])
 
 
-func spawn_children() -> void:
+func spawn_children(piercing_laser: Area2D = null) -> void:
 	for i in range(2):
 		var child = asteroid_scene.instantiate()
 		child.global_position = global_position
 		child.current_size = current_size
 		child.color = color
 		child.health = 3 - sizes.find(current_size)
+		child.ignored_laser = piercing_laser
 		get_parent().add_child(child)

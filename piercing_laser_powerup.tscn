@@ -1,12 +1,22 @@
 [gd_scene format=3 uid="uid://cxtbifudl6o0h"]
 
+[ext_resource type="Texture2D" uid="uid://cqiirbwkdn36m" path="res://PNG/Lasers/laserRed01.png" id="1_5vg5a"]
+[ext_resource type="Script" uid="uid://dwnho7t4r24sf" path="res://piercing_laser_powerup.gd" id="1_wnamv"]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4q8wv"]
+radius = 6.0
+height = 58.0
 
 [node name="piercing_laser" type="Area2D" unique_id=452014203]
+script = ExtResource("1_wnamv")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1047076865]
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("1_5vg5a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=397352219]
 shape = SubResource("CapsuleShape2D_4q8wv")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1711537087]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

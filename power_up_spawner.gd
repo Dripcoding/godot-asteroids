@@ -8,18 +8,13 @@ extends Timer
 @onready var powerups = {
 	'extra_life': preload('res://extra_life_powerup.tscn'),
 	'shield': preload('res://PNG/Power-ups/powerupYellow_shield.png'),
-	'piercing_laser': preload('res://PNG/Lasers/laserGreen01.png')
+	'piercing_laser': preload('res://piercing_laser_powerup.tscn')
 }
 
 
 var rng = RandomNumberGenerator.new()
 var viewport_size: Vector2i = DisplayServer.window_get_size()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-	
 
 func _on_timeout() -> void:
 	_spawn_powerup()
@@ -33,7 +28,7 @@ func _determine_powerup_position() -> Vector2:
 
 func _spawn_powerup() -> void:
 	print('SPAWNING POWERUP')
-	var powerup = powerups['extra_life'].instantiate()
+	var powerup = powerups['piercing_laser'].instantiate()
 	powerup.global_position = _determine_powerup_position()
 	add_child(powerup)
 	

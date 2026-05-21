@@ -12,6 +12,7 @@ signal life_gained
 
 var laser_scene: PackedScene = preload('res://laser.tscn')
 var is_invincible: bool = false
+@export var has_piercing_laser: bool = false
 
 
 func _physics_process(_delta: float) -> void:
@@ -63,8 +64,11 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 		
 		
 func shoot() -> void:
+	var laser: Node2D = laser_scene.instantiate()
+	if has_piercing_laser:
+		laser.set_is_piercing(true)
+	
 	if Input.is_action_just_pressed("shoot"):
-		var laser: Node2D = laser_scene.instantiate()
 		laser.global_rotation = %LaserSpawnPoint.global_rotation
 		laser.global_position = %LaserSpawnPoint.global_position
 		%LaserSpawnPoint.add_child(laser)
@@ -89,3 +93,7 @@ func gain_life() -> void:
 	health += 1
 	print('GAINING A LIFE ' + str(health))
 	life_gained.emit()
+
+
+func set_has_piercing_laser(val: bool) -> void:
+	has_piercing_laser = val

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c0j1d0vr3qlie" path="res://PNG/Meteors/meteorGrey_big1.png" id="1_u87q6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p0ukn"]
+radius = 54.037025
 
 [node name="Asteroid" type="Area2D" unique_id=404754690]
 script = ExtResource("1_p0ukn")

@@ -2,6 +2,7 @@ extends Area2D
 
 
 @export var speed: float = 500.0
+var is_piercing: bool = false
 
 
 func _ready() -> void:
@@ -19,3 +20,6 @@ func destroy() -> void:
 
 func _on_screen_exited() -> void:
 	destroy()
+	
+func set_is_piercing(val: bool) -> void:
+	is_piercing = val
