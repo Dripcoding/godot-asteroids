@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cxtbifudl6o0h"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4q8wv"]
+
+[node name="piercing_laser" type="Area2D" unique_id=452014203]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1047076865]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=397352219]
+shape = SubResource("CapsuleShape2D_4q8wv")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1711537087]

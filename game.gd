@@ -10,13 +10,12 @@ func _ready() -> void:
 	%GameOverScreen.visible = false
 
 	for i in range(%Player.health, 0, -1):
-		var ship_icon = TextureRect.new()
-		ship_icon.texture = ship_scene
-		ship_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+		var ship_icon = draw_life_texture()
 		%HealthContainer.add_child(ship_icon)
 
 	%Player.damage_taken.connect(_on_player_take_damage)
 	%Player.health_depleted.connect(_on_player_health_depleted)
+	%Player.life_gained.connect(_on_player_life_gained)
 
 
 func _process(delta: float) -> void:
@@ -38,6 +37,17 @@ func _on_player_health_depleted() -> void:
 	get_tree().paused = true
 
 
+func _on_player_life_gained() -> void:
+	%HealthContainer.add_child(draw_life_texture())
+
+
 func _on_game_over_button_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+
+
+func draw_life_texture() -> TextureRect:
+	var ship_icon = TextureRect.new()
+	ship_icon.texture = ship_scene
+	ship_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+	return ship_icon

@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 signal health_depleted
 signal damage_taken
+signal life_gained
 
 @export var speed: float = 300.0
 @export var ship_rotation: float = 10.0
@@ -78,3 +79,8 @@ func take_damage() -> void:
 	if health <= 0:
 		health_depleted.emit()
 	
+
+func gain_life() -> void:
+	health += 1
+	print('GAINING A LIFE ' + str(health))
+	life_gained.emit()
