@@ -118,6 +118,11 @@ wait_time = 10.0
 autostart = true
 script = ExtResource("5_7jktm")
 
+[node name="PowerUpDespawnTimer" type="Timer" parent="PowerUpSpawner" unique_id=2025576965]
+unique_name_in_owner = true
+wait_time = 5.0
+
 [connection signal="pressed" from="UI/Control/GameOverScreen/GameOverButton" to="." method="_on_game_over_button_pressed"]
 [connection signal="timeout" from="AsteroidSpawner" to="AsteroidSpawner" method="_on_timeout"]
 [connection signal="timeout" from="PowerUpSpawner" to="PowerUpSpawner" method="_on_timeout"]
+[connection signal="timeout" from="PowerUpSpawner/PowerUpDespawnTimer" to="PowerUpSpawner" method="_on_power_up_despawn_timer_timeout"]
