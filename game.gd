@@ -50,4 +50,5 @@ func draw_life_texture() -> TextureRect:
 	var ship_icon = TextureRect.new()
 	ship_icon.texture = ship_scene
 	ship_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+	ship_icon.custom_minimum_size = Vector2(50, 50)
 	return ship_icon
