@@ -102,6 +102,8 @@ func gain_life() -> void:
 
 func gain_extra_laser() -> void:
 	has_extra_laser = true
+	%LaserSpawnPoint.position = Vector2(-20, -96)
+	%LaserSpawnPoint2.position = Vector2(20, -96)
 
 
 

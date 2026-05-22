@@ -34,7 +34,7 @@ func _determine_powerup_position() -> Vector2:
 
 func _spawn_powerup() -> void:
 	print('SPAWNING POWERUP')
-	var powerup = powerups['extra_laser'].instantiate()
+	var powerup = powerups['extra_life'].instantiate()
 	powerup.global_position = _determine_powerup_position()
 	current_powerup = powerup
 	add_child(powerup)
