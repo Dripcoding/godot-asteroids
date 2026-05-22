@@ -22,7 +22,8 @@ func _on_timeout() -> void:
 
 
 func _on_power_up_despawn_timer_timeout() -> void:
-	current_powerup.queue_free()
+	if (is_instance_valid(current_powerup)):
+		current_powerup.queue_free()
 	%PowerUpDespawnTimer.stop()
 	
 func _determine_powerup_position() -> Vector2:
