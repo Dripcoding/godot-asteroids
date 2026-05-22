@@ -84,4 +84,6 @@ func spawn_children(piercing_laser: Area2D = null) -> void:
 		child.color = color
 		child.health = 3 - sizes.find(current_size)
 		child.ignored_laser = piercing_laser
-		get_parent().add_child(child)
+		# wait until engine finishes flushing physics queries
+		# new child will be added during idle time cycle once
+		get_parent().call_deferred("add_child", child)
