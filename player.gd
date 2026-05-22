@@ -32,6 +32,7 @@ func _physics_process(_delta: float) -> void:
 
 	velocity *= friction
 	move_and_slide()
+	%ThrustParticles.emitting = Input.is_action_pressed("up")
 
 	#if is_invincible:
 		#$Sprite2D.visible = int(Time.get_ticks_msec() / 100) % 2 == 0
