@@ -1,7 +1,6 @@
 extends Area2D
 
 
-
 @export var health: int = 3
 @export var sizes: Array[String] = ['big', 'med', 'small', 'tiny']
 @export var current_size: String = 'big'
@@ -20,7 +19,8 @@ var rng = RandomNumberGenerator.new()
 func _ready() -> void:
 	add_to_group("asteroids")
 	speed = rng.randf_range(min_speed, max_speed)
-	velocity = Vector2.from_angle(randf() * TAU)
+	if velocity == Vector2.ZERO:
+		velocity = Vector2.from_angle(randf() * TAU)
 	update_texture()
 
 
@@ -42,6 +42,9 @@ func _on_area_entered(area: Area2D) -> void:
 		if area == ignored_laser:
 			return
 		update_stats(area)
+	elif area.is_in_group('shield'):
+		area.take_hit()
+		update_stats(null, area)
 			
 			
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
@@ -60,7 +63,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	elif global_position.y > viewport_rect.end.y:
 		global_position.y = viewport_rect.position.y			
 			
-func update_stats(piercing_laser: Area2D = null) -> void:
+func update_stats(area: Area2D = null, shield: Area2D = null) -> void:
 	if is_hit:
 		return
 	is_hit = true
@@ -68,7 +71,7 @@ func update_stats(piercing_laser: Area2D = null) -> void:
 	if (health >= 0):
 		current_size = sizes[3 - health]
 		if current_size != 'tiny':
-			spawn_children(piercing_laser)
+			spawn_children(area, shield)
 	queue_free()
 
 
@@ -76,14 +79,28 @@ func update_texture() -> void:
 	$Sprite2D.texture = load("res://PNG/Meteors/meteor%s_%s1.png" % [color, current_size])
 
 
-func spawn_children(piercing_laser: Area2D = null) -> void:
+func spawn_children(area: Area2D = null, shield: Area2D = null) -> void:
+	var outward_dir: Vector2 = Vector2.ZERO
+	var spawn_offset: float = 0.0
+	if shield != null:
+		outward_dir = (global_position - shield.global_position).normalized()
+		if outward_dir == Vector2.ZERO:
+			outward_dir = Vector2.from_angle(randf() * TAU)
+		var shield_shape: CircleShape2D = shield.get_node("CollisionShape2D").shape
+		var child_shape: CircleShape2D = $CollisionShape2D.shape
+		spawn_offset = shield_shape.radius + child_shape.radius + 20.0
+
 	for i in range(2):
 		var child = asteroid_scene.instantiate()
 		child.global_position = global_position
 		child.current_size = current_size
 		child.color = color
 		child.health = 3 - sizes.find(current_size)
-		child.ignored_laser = piercing_laser
-		# wait until engine finishes flushing physics queries
-		# new child will be added during idle time cycle once
+		child.ignored_laser = area
+		if shield != null:
+			var spread: float = deg_to_rad(30.0) * (1.0 if i == 0 else -1.0)
+			var dir: Vector2 = outward_dir.rotated(spread)
+			child.global_position = shield.global_position + dir * spawn_offset
+			child.velocity = dir
+
 		get_parent().call_deferred("add_child", child)
