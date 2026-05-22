@@ -8,11 +8,12 @@ signal life_gained
 @export var ship_rotation: float = 10.0
 @export var friction: float = 0.8
 @export var health: int = 5
+@export var has_piercing_laser: bool = false
+@export var has_extra_laser: bool = false
 
 
 var laser_scene: PackedScene = preload('res://laser.tscn')
 var is_invincible: bool = false
-@export var has_piercing_laser: bool = false
 
 
 func _physics_process(_delta: float) -> void:
@@ -65,14 +66,17 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 		
 		
 func shoot() -> void:
-	var laser: Node2D = laser_scene.instantiate()
-	if has_piercing_laser:
-		laser.set_is_piercing(true)
-	
 	if Input.is_action_just_pressed("shoot"):
-		laser.global_rotation = %LaserSpawnPoint.global_rotation
-		laser.global_position = %LaserSpawnPoint.global_position
-		%LaserSpawnPoint.add_child(laser)
+		var points := [%LaserSpawnPoint]
+		if has_extra_laser:
+			points.append(%LaserSpawnPoint2)
+		for spawn_point in points:
+			var laser: Node2D = laser_scene.instantiate()
+			if has_piercing_laser:
+				laser.set_is_piercing(true)
+			laser.global_rotation = spawn_point.global_rotation
+			laser.global_position = spawn_point.global_position
+			spawn_point.add_child(laser)
 		
 
 func take_damage() -> void:
@@ -97,7 +101,8 @@ func gain_life() -> void:
 
 
 func gain_extra_laser() -> void:
-	print('spawning extra laser')
+	has_extra_laser = true
+
 
 
 func set_has_piercing_laser(val: bool) -> void:
