@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dosusnde5i0of"]
+
+[ext_resource type="Texture2D" uid="uid://b3726aj3msj4b" path="res://PNG/Effects/shield2.png" id="1_vuocu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ffst0"]
+
+[node name="shield" type="Area2D" unique_id=539137255]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1189086290]
+texture = ExtResource("1_vuocu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=894711154]
+shape = SubResource("CircleShape2D_ffst0")
