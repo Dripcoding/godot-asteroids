@@ -96,5 +96,9 @@ func gain_life() -> void:
 	life_gained.emit()
 
 
+func gain_extra_laser() -> void:
+	print('spawning extra laser')
+
+
 func set_has_piercing_laser(val: bool) -> void:
 	has_piercing_laser = val

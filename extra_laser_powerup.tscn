@@ -1,15 +1,20 @@
 [gd_scene format=3 uid="uid://dowsdbft70lmr"]
 
 [ext_resource type="Texture2D" uid="uid://p4crtfoxuk0i" path="res://PNG/Power-ups/powerupRed_bolt.png" id="1_eb6br"]
+[ext_resource type="Script" uid="uid://doo2mngtsu0nx" path="res://extra_laser_powerup.gd" id="1_oqy6j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oqy6j"]
-size = Vector2(37, 36)
+size = Vector2(70, 68)
 
 [node name="extra_laser_powerup" type="Area2D" unique_id=832097996]
+script = ExtResource("1_oqy6j")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1899519632]
+scale = Vector2(2, 2)
 texture = ExtResource("1_eb6br")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=762541707]
-position = Vector2(-0.5, 0)
+position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_oqy6j")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

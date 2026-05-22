@@ -7,6 +7,7 @@ extends Timer
 
 @onready var powerups = {
 	'extra_life': preload('res://extra_life_powerup.tscn'),
+	'extra_laser': preload('res://extra_laser_powerup.tscn'),
 	'shield': preload('res://PNG/Power-ups/powerupYellow_shield.png'),
 	'piercing_laser': preload('res://piercing_laser_powerup.tscn')
 }
@@ -32,7 +33,7 @@ func _determine_powerup_position() -> Vector2:
 
 func _spawn_powerup() -> void:
 	print('SPAWNING POWERUP')
-	var powerup = powerups['piercing_laser'].instantiate()
+	var powerup = powerups['extra_laser'].instantiate()
 	powerup.global_position = _determine_powerup_position()
 	current_powerup = powerup
 	add_child(powerup)
