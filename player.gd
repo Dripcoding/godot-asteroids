@@ -106,6 +106,5 @@ func gain_extra_laser() -> void:
 	%LaserSpawnPoint2.position = Vector2(20, -96)
 
 
-
 func set_has_piercing_laser(val: bool) -> void:
 	has_piercing_laser = val

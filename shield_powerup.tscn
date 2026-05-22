@@ -1,15 +1,20 @@
 [gd_scene format=3 uid="uid://cc2cqwjp3apjy"]
 
+[ext_resource type="Script" uid="uid://gvvfcs8w76gc" path="res://shield_powerup.gd" id="1_37y8v"]
 [ext_resource type="Texture2D" uid="uid://byac8ov33rw5" path="res://PNG/Power-ups/powerupBlue_shield.png" id="1_aba7l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37y8v"]
-size = Vector2(35, 36)
+size = Vector2(70, 68)
 
 [node name="shield_powerup" type="Area2D" unique_id=1496309939]
+script = ExtResource("1_37y8v")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1133600360]
+scale = Vector2(2, 2)
 texture = ExtResource("1_aba7l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=710825788]
-position = Vector2(-0.5, 0)
+position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_37y8v")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
