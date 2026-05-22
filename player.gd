@@ -13,6 +13,7 @@ signal life_gained
 
 
 var laser_scene: PackedScene = preload('res://laser.tscn')
+var shield_scene: PackedScene = preload('res://shield.tscn')
 var is_invincible: bool = false
 
 
@@ -104,6 +105,11 @@ func gain_extra_laser() -> void:
 	has_extra_laser = true
 	%LaserSpawnPoint.position = Vector2(-20, -96)
 	%LaserSpawnPoint2.position = Vector2(20, -96)
+
+
+func gain_shield() -> void:
+	var shield: Area2D = shield_scene.instantiate()
+	call_deferred('add_child', shield)	
 
 
 func set_has_piercing_laser(val: bool) -> void:
