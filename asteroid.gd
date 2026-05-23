@@ -98,9 +98,8 @@ func spawn_children(laser: Area2D = null, shield: Area2D = null) -> void:
 		outward_dir = (global_position - shield.global_position).normalized()
 		if outward_dir == Vector2.ZERO:
 			outward_dir = Vector2.from_angle(rng.randf() * TAU)
-		var shield_shape: CircleShape2D = shield.get_node("CollisionShape2D").shape
-		var child_shape: CircleShape2D = $CollisionShape2D.shape
-		spawn_offset = shield_shape.radius + child_shape.radius + SHIELD_SPAWN_BUFFER
+		var child_radius: float = ($CollisionShape2D.shape as CircleShape2D).radius
+		spawn_offset = shield.collision_radius + child_radius + SHIELD_SPAWN_BUFFER
 
 	# draw child asteroids
 	for i in range(SPLIT_COUNT):
