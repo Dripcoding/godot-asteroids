@@ -6,7 +6,6 @@ var is_piercing: bool = false
 
 
 func _ready() -> void:
-	add_to_group('lasers')
 	%VisibleOnScreenNotifier2D.screen_exited.connect(_on_screen_exited)
 
 
