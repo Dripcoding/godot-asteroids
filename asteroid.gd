@@ -96,8 +96,6 @@ func spawn_children(laser: Area2D = null, shield: Area2D = null) -> void:
 	# child asteroids should be deflected normal to shields position
 	if shield != null:
 		outward_dir = (global_position - shield.global_position).normalized()
-		if outward_dir == Vector2.ZERO:
-			outward_dir = Vector2.from_angle(rng.randf() * TAU)
 		var child_radius: float = ($CollisionShape2D.shape as CircleShape2D).radius
 		spawn_offset = shield.collision_radius + child_radius + SHIELD_SPAWN_BUFFER
 

@@ -35,6 +35,8 @@ func _physics_process(_delta: float) -> void:
 	velocity *= friction
 	move_and_slide()
 	%ThrustParticles.emitting = Input.is_action_pressed("up")
+	%ThrustParticles.angle_min = -global_rotation_degrees
+	%ThrustParticles.angle_max = -global_rotation_degrees
 
 	#if is_invincible:
 		#$Sprite2D.visible = int(Time.get_ticks_msec() / 100) % 2 == 0
@@ -83,7 +85,6 @@ func shoot() -> void:
 func take_damage() -> void:
 	if is_invincible:
 		return
-	print('taking damage from asteroid')
 	health -= 1
 	print('health ' + str(health))
 	is_invincible = true
