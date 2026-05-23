@@ -1,16 +1,16 @@
 extends Area2D
 
 
-@export var health: int = 3
+const sizes: Array[String] = ['big', 'med', 'small', 'tiny']
+const MAX_HEALTH: int = 3
+const SHIELD_SPAWN_BUFFER: float = 20.0
+const SHIELD_DEFLECT_SPREAD_DEG: float = 30.0
+
+@export var health: int = MAX_HEALTH
 @export var current_size: String = 'big'
 @export var color: String = 'Grey'
 @export var min_speed: float = 300.0
 @export var max_speed: float = 500.0
-
-
-const sizes: Array[String] = ['big', 'med', 'small', 'tiny']
-const SHIELD_SPAWN_BUFFER: float = 20.0
-const SHIELD_DEFLECT_SPREAD_DEG: float = 30.0
 
 
 var asteroid_scene: PackedScene = preload('res://asteroid.tscn')
@@ -76,7 +76,7 @@ func update_stats(area: Area2D = null, shield: Area2D = null) -> void:
 	is_hit = true
 	health -= 1
 	if health >= 0:
-		current_size = sizes[3 - health]
+		current_size = sizes[MAX_HEALTH - health]
 		if current_size != 'tiny':
 			spawn_children(area, shield)
 	# free asteroid that was hit
@@ -107,11 +107,11 @@ func spawn_children(laser: Area2D = null, shield: Area2D = null) -> void:
 		child.global_position = global_position
 		child.current_size = current_size
 		child.color = color
-		child.health = 3 - sizes.find(current_size)
+		child.health = MAX_HEALTH - sizes.find(current_size)
 		child.ignored_laser = laser
 		
 		if shield != null:
-			var spread: float = deg_to_rad(SHIELD_SPAWN_BUFFER) * (1.0 if i == 0 else -1.0)
+			var spread: float = deg_to_rad(SHIELD_DEFLECT_SPREAD_DEG) * (1.0 if i == 0 else -1.0)
 			var dir: Vector2 = outward_dir.rotated(spread)
 			child.global_position = shield.global_position + dir * spawn_offset
 			child.velocity = dir

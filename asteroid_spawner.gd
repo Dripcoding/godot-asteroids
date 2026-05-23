@@ -1,7 +1,10 @@
 extends Timer
 
 
-var rng = RandomNumberGenerator.new()
+const SPAWN_EDGE_OFFSET: float = 50.0
+
+
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var asteroid_scene: PackedScene = preload('res://asteroid.tscn')
 var viewport_size: Vector2i = DisplayServer.window_get_size()
 
@@ -16,17 +19,13 @@ func start_spawning() -> void:
 	get_parent().add_child(new_asteroid)
 	
 	
-func stop_spawning() -> void:
-	%AsteroidSpawner.stop()
-	
-	
 func _get_random_edge_position() -> Vector2:
 	var sides: Array[String] = ['top', 'right', 'left', 'bottom'] 
-	var side: String = sides[rng.randi_range(0, sides.size() - 1)]
+	var side: String = sides.pick_random()
 	
 	match side:
-		'top': return Vector2(rng.randf_range(0, viewport_size.x), -50)
-		'right': return Vector2(viewport_size.x + 50, rng.randf_range(0, viewport_size.y))
-		'left': return Vector2(-50, rng.randf_range(0, viewport_size.y))
+		'top': return Vector2(rng.randf_range(0, viewport_size.x), -SPAWN_EDGE_OFFSET)
+		'right': return Vector2(viewport_size.x + SPAWN_EDGE_OFFSET, rng.randf_range(0, viewport_size.y))
+		'left': return Vector2(-SPAWN_EDGE_OFFSET, rng.randf_range(0, viewport_size.y))
 		_: return Vector2(rng.randf_range(0, viewport_size.x), viewport_size.y + 50)
 	

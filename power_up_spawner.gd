@@ -13,7 +13,7 @@ extends Timer
 }
 
 
-var rng = RandomNumberGenerator.new()
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var viewport_size: Vector2i = DisplayServer.window_get_size()
 
 
@@ -22,7 +22,7 @@ func _on_timeout() -> void:
 
 
 func _on_power_up_despawn_timer_timeout() -> void:
-	if (is_instance_valid(current_powerup)):
+	if is_instance_valid(current_powerup):
 		current_powerup.queue_free()
 	%PowerUpDespawnTimer.stop()
 	

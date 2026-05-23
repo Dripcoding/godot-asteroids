@@ -1,9 +1,13 @@
 extends Node2D
 
 
-var ship_scene: CompressedTexture2D = preload('res://PNG/playerShip2_red.png')
+const HEALTH_ICON_SIZE: Vector2 = Vector2(50.0, 50.0)
+
+
+var ship_scene: Texture2D = preload('res://PNG/playerShip2_red.png')
 var time_elapsed: float = 0
 var is_game_active: bool = true
+
 
 
 func _ready() -> void:
@@ -50,5 +54,5 @@ func draw_life_texture() -> TextureRect:
 	var ship_icon = TextureRect.new()
 	ship_icon.texture = ship_scene
 	ship_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-	ship_icon.custom_minimum_size = Vector2(50, 50)
+	ship_icon.custom_minimum_size = HEALTH_ICON_SIZE
 	return ship_icon
