@@ -5,6 +5,8 @@ const sizes: Array[String] = ['big', 'med', 'small', 'tiny']
 const MAX_HEALTH: int = 3
 const SHIELD_SPAWN_BUFFER: float = 20.0
 const SHIELD_DEFLECT_SPREAD_DEG: float = 30.0
+const SPLIT_COUNT: int = 2
+
 
 @export var health: int = MAX_HEALTH
 @export var current_size: String = 'big'
@@ -39,13 +41,12 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group('lasers') and !area.is_piercing:
-		area.destroy()
-		update_stats()
-	elif area.is_in_group('lasers') and area.is_piercing:
+	if area.is_in_group('lasers'):
 		if area == ignored_laser:
 			return
-		update_stats(area)
+		if not area.is_piercing:
+			area.queue_free()
+		update_stats(area if area.is_piercing else null)
 	elif area.is_in_group('shield'):
 		area.take_hit()
 		update_stats(null, area)
@@ -53,7 +54,7 @@ func _on_area_entered(area: Area2D) -> void:
 			
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	var viewport_rect: Rect2 = get_viewport_rect()
-#	# wrap around x axis from left to right
+	# wrap around x axis from left to right
 	if global_position.x < viewport_rect.position.x:
 		global_position.x = viewport_rect.end.x
 	# wrap around x axis from right to left
@@ -77,7 +78,7 @@ func update_stats(area: Area2D = null, shield: Area2D = null) -> void:
 	health -= 1
 	if health >= 0:
 		current_size = sizes[MAX_HEALTH - health]
-		if current_size != 'tiny':
+		if current_size != sizes.back():
 			spawn_children(area, shield)
 	# free asteroid that was hit
 	queue_free()
@@ -102,8 +103,8 @@ func spawn_children(laser: Area2D = null, shield: Area2D = null) -> void:
 		spawn_offset = shield_shape.radius + child_shape.radius + SHIELD_SPAWN_BUFFER
 
 	# draw child asteroids
-	for i in range(2):
-		var child = asteroid_scene.instantiate()
+	for i in range(SPLIT_COUNT):
+		var child: Node2D = asteroid_scene.instantiate()
 		child.global_position = global_position
 		child.current_size = current_size
 		child.color = color
