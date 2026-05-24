@@ -95,6 +95,7 @@ text = "Restart Game"
 [node name="Player" parent="." unique_id=289752619 instance=ExtResource("1_80nbo")]
 unique_name_in_owner = true
 position = Vector2(970, 652)
+health = 10
 
 [node name="Asteroid" parent="." unique_id=239440768 instance=ExtResource("2_e2o6t")]
 position = Vector2(971, 332)
@@ -108,7 +109,7 @@ position = Vector2(358, 867)
 [node name="AsteroidSpawner" type="Timer" parent="." unique_id=1221697453]
 unique_name_in_owner = true
 process_callback = 0
-wait_time = 1.5
+wait_time = 10.0
 autostart = true
 script = ExtResource("4_fc0e3")
 

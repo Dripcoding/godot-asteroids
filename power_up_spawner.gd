@@ -25,17 +25,19 @@ func _on_power_up_despawn_timer_timeout() -> void:
 	if is_instance_valid(current_powerup):
 		current_powerup.queue_free()
 	%PowerUpDespawnTimer.stop()
-	
+
+
 func _determine_powerup_position() -> Vector2:
 	var position_x: float = rng.randf_range(powerup_pos_offset, viewport_size.x - powerup_pos_offset)
 	var position_y: float = rng.randf_range(powerup_pos_offset, viewport_size.y - powerup_pos_offset)
 	
 	return Vector2(position_x, position_y)
 
+
 func _spawn_powerup() -> void:
 	print('SPAWNING POWERUP')
-	var powerup = powerups['shield'].instantiate()
+	var powerup = powerups.values().pick_random().instantiate()
 	powerup.global_position = _determine_powerup_position()
 	current_powerup = powerup
-	add_child(powerup)
+	add_child(current_powerup)
 	%PowerUpDespawnTimer.start()

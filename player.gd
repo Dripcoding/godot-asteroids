@@ -53,7 +53,7 @@ func _physics_process(_delta: float) -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	var viewport_rect: Rect2 = get_viewport_rect()
-#	# wrap around x axis from left to right
+	# wrap around x axis from left to right
 	if global_position.x < viewport_rect.position.x:
 		global_position.x = viewport_rect.end.x
 	# wrap around x axis from right to left
@@ -104,6 +104,7 @@ func gain_life() -> void:
 
 func gain_extra_laser() -> void:
 	has_extra_laser = true
+	has_piercing_laser = false
 	%LaserSpawnPoint.position = Vector2(-20, -96)
 	%LaserSpawnPoint2.position = Vector2(20, -96)
 
@@ -115,3 +116,5 @@ func gain_shield() -> void:
 
 func set_has_piercing_laser(val: bool) -> void:
 	has_piercing_laser = val
+	if val:
+		has_extra_laser = false
